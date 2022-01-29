@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zaurex</title>
+    <link rel= "stylesheet" href="{{ static_url("css/overall.css") }}">
+    <link rel="icon" type="image/x-icon" href="{{ static_url("pictures/favicon1.ico") }}">
+
+    <link rel= "stylesheet" href="{{ static_url("css/textbox.css") }}">
+  <style>
+    .login-btn {
+    font-family: Hack, monospace;
+    background: #bbff00;
+    color: #1d1d1d;
+    cursor: pointer;
+    font-size: 2em;
+    padding: 1.5rem;
+    border: 0;
+    transition: all 0.5s;
+    border-radius: 10px;
+    width: auto;
+    position: relative;
+    min-width: 250px;
+  }
+.login-btn::after {
+  content: "=>";
+  font-family: "Font Awesome 5 Pro";
+  font-weight: 400;
+  position: absolute;
+  left: 80%;
+  top: 54%;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+.login-btn:hover {
+  background: #2b2bff;
+  transition: all 0.5s;
+  border-radius: 10px;
+  box-shadow: 0px 6px 15px #0000ff61;
+  padding: 1.5rem 3rem 1.5rem 1.5rem;
+  color: #ffffff;
+}
+.login-btn:hover::after {
+  opacity: 1;
+  transition: all 0.5s;
+  color: #ffffff;
+}
+.login-btn:disabled{
+  font-family: Hack, monospace;
+  background: #747571;
+  color: #1d1d1d;
+  cursor: pointer;
+  font-size: 2em;
+  padding: 1.5rem;
+  border: 0;
+  transition: all 0.5s;
+  border-radius: 10px;
+  width: auto;
+  position: relative;
+  min-width: 250px;
+}
+div.login_context {
+  position: absolute;
+  top: 200px;
+  left: 480px;
+  width: 600px;
+  height: 400px;
+  color: rgb(0, 0, 0);
+
+}
+
+div.login_rim {
+  position: absolute;
+  top: 200px;
+  left: 480px;
+  width: 600px;
+  height: 400px;
+  border: 3px solid #73AD21;
+  background-color: rgb(79, 82, 82);
+  opacity: 0.3;
+}
+  </style>
+  </head>
+
+  <body>
+    <div class="login_rim"> </div>
+    <div class="login_context">
+    <h1>Intranet Zaurex</h1>
+    <br>
+    <form action="" method="post">
+
+      <label for="inp" class="inp">
+        <input type="text" name="username" id="inp" placeholder="&nbsp;">
+        <span class="label">username</span>
+        <span class="focus-bg"></span>
+      </label>
+      <br>
+      <br>
+      <label for="inp" class="inp">
+        <input type="password" name="password" id="inp" placeholder="&nbsp;">
+        <span class="label">password</span>
+        <span class="focus-bg"></span>
+      </label>
+      <br>
+      <br>
+      <br>
+
+      <button class="login-btn" type="submit" id="submit_button" name="login_btn">Login / Signup</button>
+    </form>
+    <br>    
+    </div>
+
+    <author class="made-with-love">
+      Made with
+      <i>♥</i> by
+      <a target="_blank" href="https://github.com/naxit-01">Vojtak</a>
+    </author>
+  </body>
+</html>

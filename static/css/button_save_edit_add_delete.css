@@ -1,0 +1,226 @@
+button {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;        
+}
+
+.deleteouter {   
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    cursor: pointer;
+}
+.deleteinner {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+}
+.deleteinner:before, .deleteinner:after {
+    position: absolute; content: ''; transition: all .3s ease-in;
+    height: 3px;
+    background: #ce0303;
+}
+.deleteinner label{
+    opacity: 0; 
+  }
+.deleteinner:before {
+    top: 50%; 
+    width: 100%;
+    left: 0%; 
+    transform: rotate(45deg);  
+  }
+.deleteinner:after {  
+    top: 50%; 
+    width: 100%;
+    left: 0%;
+    transform: rotate(-45deg);  
+}
+.deleteouter:hover label {
+    opacity: 1;
+}
+.deleteouter:hover .deleteinner:before,
+.deleteouter:hover .deleteinner:after {
+    
+    transform: rotate(0);
+}
+.deleteouter:hover .deleteinner:before {
+
+    transform: translateY(-400%);
+}
+.deleteouter:hover .deleteinner:after {
+    transform: translateY(350%);
+}
+
+
+
+.saveouter {   
+    position: relative;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+
+}
+.saveinner {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+}
+
+.saveinner label{
+    opacity: 0; 
+  }
+
+.saveinner:before, .saveinner:after{
+    position: absolute; content: ''; transition: all .4s ease-in;
+    height: 3px;
+    background: #24a70a;
+    
+}
+.saveinner:before {
+    top: 75%; 
+    width: 45%;
+    left: 8%; 
+    transform: rotate(50deg);  
+}
+.saveinner:after {  
+    top: 50%; 
+    width: 100%;
+    left: 19%; 
+    transform: rotate(-60deg);  
+}
+.saveouter:hover label {
+    opacity: 10;
+}
+.saveouter:hover .saveinner:before{
+    top: 0;
+    height: 20%;
+    transform:  scale(1.5,0.3) rotate(0deg) translate(35%,300%);
+}
+.saveouter:hover .saveinner:after {
+    bottom: 0;
+    height: 20%;
+    transform: scale(0.67,0.3) rotate(0deg) translate(-22%,170%); 
+}
+
+
+.addouter {   
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    cursor: pointer;
+}
+.addinner {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+}
+
+.addinner label{
+    opacity: 0; 
+  }
+.addinner:before, .addinner:after {
+    position: absolute; content: ''; transition: all .3s ease-in;
+    height: 3px;
+    background: #0400ff;
+}
+.addinner:before {
+    top: 50%; 
+    width: 100%;
+    left: 0%; 
+    transform: rotate(90deg);  
+  }
+.addinner:after {  
+    top: 50%; 
+    width: 100%;
+    left: 0%;
+    transform: rotate(0deg);  
+}
+.addouter:hover label {
+    opacity: 1;
+}
+.addouter:hover .addinner:before,
+.addouter:hover .addinner:after {
+    
+    transform: rotate(0);
+}
+.addouter:hover .addinner:before {
+
+    transform: translateY(-400%);
+}
+.addouter:hover .addinner:after {
+    transform: translateY(350%);
+}
+
+
+.editouter {   
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    cursor: pointer;
+}
+.editinner {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+}
+
+.editinner label{
+    opacity: 0; 
+  }
+.editinner:before, .editinner:after {
+    position: absolute; content: ''; transition: all .3s ease-in;
+    height: 3px;
+    background: #ffb700;
+}
+.editinner:before {
+    top: 30%; 
+    width: 110%;
+    left: -10%; 
+    transform: rotate(135deg);  
+  }
+.editinner:after {  
+    top: 50%; 
+    width: 110%;
+    left: 15%;
+    transform: rotate(135deg);  
+}
+.editouter:hover label {
+    opacity: 1;
+}
+.editouter:hover .editinner:before,
+.editouter:hover .editinner:after {
+    
+    transform: rotate(0);
+}
+.editouter:hover .editinner:before {
+
+    transform:  scale(1,1) rotate(90deg) translate(15%,700%);
+}
+.editouter:hover .editinner:after {
+    transform:  scale(1,1) rotate(0deg) translate(-20%,750%);
+}
+
+
+.edithrotinner:before, .edithrotinner:after {
+    position: absolute; content: ''; 
+    height: 3px;
+    background: #ffb700;
+}
+.edithrotinner:before {
+    top: 74%; 
+    width: 35%;
+    left: -10%; 
+    transform: rotate(90deg);  
+  }
+  .edithrotinner:after {  
+    top: 90%; 
+    width: 35%;
+    left: 5%;
+    transform: rotate(0deg);  
+}

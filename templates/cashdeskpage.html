@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zaurex</title>
+    <link rel= "stylesheet" href="{{ static_url("css/overall.css") }}">
+    <link rel="icon" type="image/x-icon" href="{{ static_url("pictures/favicon1.ico") }}">
+    <link rel= "stylesheet" href="{{ static_url("css/textbox.css") }}">
+    <link rel= "stylesheet" href="{{ static_url("css/select.css") }}">
+    <style>
+        div.cashdesk_formbgSF{
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 50%;
+            border: 3px solid #73AD21;
+            background-color: rgb(79, 82, 82);
+            opacity: 0.3;
+        }
+        div.cashdesk_formSF{
+            position: absolute;
+            top: 31%;
+            left: 31%;
+            width: 38%;
+            height: 48%;
+        }
+        div.cashdesk_formbgST{
+            position: absolute;
+            top: 20%;
+            left: 2%;
+            width: 42%;
+            height: 50%;
+            border: 3px solid #73AD21;
+            background-color: rgb(79, 82, 82);
+            opacity: 0.3;
+        }
+        div.cashdesk_formST{
+            position: absolute;
+            top: 21%;
+            left: 3%;
+            width: 40%;
+            height: 48%;
+        }
+        button.showReceipts{
+            position: absolute;
+            right: 0%;
+            top: 0%;
+            width: 120px;
+            height: 35px;
+            background-color: rgb(48, 212, 188);
+            border: none;
+            border-radius: 10px
+        }
+        button.closeReceipts{
+            position: absolute;
+            right: 0%;
+            top: 0%;
+            width: 70px;
+            height: 35px;
+            background-color: rgb(255, 0, 0);
+            border: none;
+            border-radius: 10px
+        }
+
+        div.showReceiptbg{
+            position: absolute;
+            top: 20%;
+            left: 46%;
+            width: 52%;
+            height: 70%;
+            border: 3px solid #73AD21;
+            background-color: rgb(79, 82, 82);
+            opacity: 0.3;
+
+        }
+        div.showReceipt{
+            position: absolute;
+            top: 21%;
+            left: 47%;
+            width: 50%;
+            height: 68%;
+        }
+        select.selectReceipt{
+            position: absolute;
+            top: 0%;
+            left: 0%;
+        }
+        div.receipt{
+            position: relative;
+            top: 30px;
+        }
+    </style>
+</head>
+<body>
+    {{ database[0]["selectedID"] }}
+    <form method="post" action="">
+        {% if stats["showMode"]=="False" %}
+        <div class="cashdesk_formbgSF"></div> 
+        <div class="cashdesk_formSF">
+            <button class="showReceipts" name="showMode_btn">Ukaz doklady</button>
+            <br>
+        {% else %}
+        <div class="cashdesk_formbgST"></div> 
+        <div class="cashdesk_formST">    
+        {% end %}
+            
+            <br><br>
+            <input class="cashTextInput" type="text" name="NewProductIDText" value="Zadejte ID produktu" onchange="this.form.submit()"></input>
+
+            <select class="select" name="NewProductIDSelect" onchange="this.form.submit()">
+                <option disabled selected value> -- Vyberte ze seznamu -- </option>
+                {% for i,item in enumerate(database[0]["tableRows"]) %}
+                    {% if not str(item[0]) in database[0]["selectedID"] %}
+                        <option value={{ item[0] }}>{{ item[1] }}</option>
+                    {% end %}
+                {% end %}
+            </select>
+            <br>
+            {% for i, product in enumerate(database[0]["selectedID"]) %}
+                {% for i,item in enumerate(database[0]["tableRows"]) %}
+                    {% if str(item[0]) == product %}
+                        {{ item[1] }} {{ item[2] }} {{ item[3] }}
+                        <button name={{ str("DeleteSelectedProductID" + product ) }}>X</button>
+                    {% end %}
+                {% end %}
+                <br>
+            {% end %}
+            <br>
+            <br>
+            <button name="confirm_btn">Potvrdit</button>
+
+        </div>
+        {% if stats["showMode"]=="True" %}
+        <div class="showReceiptbg"></div>
+        <div class="showReceipt">
+            <button class="closeReceipts" name="showMode_btn">Zavrit</button>
+            <select class="selectReceipt" name="receiptID" onchange="this.form.submit()">
+                <option disabled selected value> -- Vyberte ze seznamu -- </option>
+                {% for i,item in enumerate(database[1]["tableRows"]) %}
+                        <option value={{ database[1]["tableRows"][i][0]}}>{{ database[1]["tableRows"][i][6]}}</option>    
+                {% end %}
+            </select>
+            {% if len(database[1]["selectedID"])==1 %}
+                {% for index,receipt in enumerate(database[1]["tableRows"]) %}
+                    {% if str(receipt[0])==database[1]["selectedID"][0] %}
+                        
+                        <br>
+                        <br>
+                        <iframe src={{ str('/static/receipts/' + database[1]["tableRows"][index][6] + ".pdf")}} width="100%" height="90%" top=100px style="border: none;">
+		                <p>
+			                Your browser does not support PDFs.
+                            <div class="receipt">
+                                {{ database[1]["tableRows"][index] }}
+                            </div>
+                        </p>
+	</iframe>
+                    {% end %}
+                {% end %}
+            {% end %}
+        </div>
+        {% end %}
+    </form>
+
+    <logohome class="logohome">
+        <a href='/'><img src='/static/pictures/logoVelkePlank_trans.png' width="435" height="100")></a> 
+    </logohome>
+
+    <author class="made-with-love">
+        Made with
+        <i>♥</i> by
+        <a target="_blank" href="https://github.com/naxit-01">Vojtak</a>
+      </author>
+      
+      <script>
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+      
+        window.onbeforeunload = function(e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+        </script>
+          <form  action="" method="post">
+            <user class=user>
+              <div class="menu">
+                <div class="title" onclick="f()">Logged in as <b>{{ user["username"] }}</b>
+                  <div class="arrow"></div></div>
+                <div class="dropdown">
+                  <p class="userbtn"><button class="user_btn" name="aboutme_btn">About me</button></p>
+                  <p class="userbtn"><button class="user_btn" name="logout_btn">Sign out</button></p>
+                </div>
+              </div>
+          <br>       
+          {% if stats["aboutme"] %}
+            <br>
+            osoba: {{ user["firstname"] }} {{ user["surname"] }}
+            <br>
+            email: {{ user["email"] }}
+            <br>
+            tel: {{ user["tel"] }}
+          {% end %}
+            
+          </form>
+          <script type="text/javascript" src="static/js/user.js"></script>
+</body>
+</html>

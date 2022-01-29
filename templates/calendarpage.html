@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zaurex</title>
+    <link rel= "stylesheet" href="{{ static_url("css/overall.css") }}">
+    <link rel="icon" type="image/x-icon" href="{{ static_url("pictures/favicon1.ico") }}">
+
+    <link rel= "stylesheet" href="{{ static_url("css/textbox.css") }}">  
+    <link rel="stylesheet" href="{{ static_url("css/table.css") }}">
+    <link rel="stylesheet" href="{{ static_url("css/button_save_edit_add_delete.css") }}">
+
+    <style>
+      .square{
+        height:50px;
+        width:90%;
+        background-color: rgba(255,255,255,0.6);
+        border-radius: 10px
+      }
+      .red_bg{
+        background-color: rgb(190, 86, 54)
+      }
+      .green_bg{
+        background-color: rgb(120, 190, 54)
+      }
+      .yellow_bg{
+        background-color: rgb(190, 181, 54)
+      }
+    </style>
+  </head>
+<body>
+  <logohome class="logohome">
+    <a href='/'><img src='/static/pictures/logoVelkePlank_trans.png' width="435" height="100")></a> 
+  </logohome>
+
+<form action="" method="post">
+  <br><br>
+  {% if not data["selectedDay"]["dayID"] %}
+    <table class="tblL" id="calendar" cellpadding="0" cellspacing="0" border="0" >
+  {% else %}
+    <table class="tblS" id="calendar" cellpadding="0" cellspacing="0" border="0" >
+  {% end %}
+    <thead class="tbl-head">
+      <tr>
+          <th colspan=7>
+            <strong>
+            <button type="submit" name="prev_btn"><b style="font-size:18px; color: rgb(13, 228, 196);"><=</b></button>
+            {{ data["days"]["month"]}} {{ data["days"]["year"]}} 
+            <button name="next_btn"><b style="font-size:18px; color: rgb(13, 228, 196);">=></b></button>
+          </strong>
+        </th>
+      </tr>
+      <tr>
+              <th><strong>Po</strong></th>
+              <th><strong>Ut</strong></th>
+              <th><strong>St</strong></th>
+              <th><strong>Ct</strong></th>
+              <th><strong>Pa</strong></th>
+              <th><strong>So</strong></th>
+              <th><strong>Ne</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+    {% for i in range(len(data["days"]["days"])+data["days"]["firstday"]) %}
+      {% if i%7==0 %}
+        </tr><tr>
+      {% end %}
+      <th>
+      {% if i>= data["days"]["firstday"] %}
+        <button class="square" name= {{ str(data["days"]["days"][i-data["days"]["firstday"]]) + "_btn" }}>
+          <b>{{ data["days"]["days"][i-data["days"]["firstday"]]}}</b>
+          
+          {% for note in data["notes"] %}
+            {% if int(note[1].split("-")[0])==data["days"]["year"] and int(note[1].split("-")[1])==data["days"]["monthnum"] and data["days"]["days"][i-data["days"]["firstday"]]>=int(note[1].split("-")[2]) and data["days"]["days"][i-data["days"]["firstday"]]<=int(note[2].split("-")[2]) %}
+            <br>
+              {% if note[4]=="dovolena"%}
+                <note class="red_bg">{{ note[3]["firstname"] }} {{ note[3]["surname"] }}</note>
+              {% end %}
+              {% if note[4]=="zamestnani"%}
+                <note class="green_bg">{{ note[3]["firstname"] }} {{ note[3]["surname"] }}</note>
+              {% end %}
+              {% if note[4]=="jine"%}
+                <note class="yellow_bg">{{ note[3]["firstname"] }} {{ note[3]["surname"] }}</note>
+              {% end %}
+
+            {% end %}
+          {% end %}
+          <br>
+        </button>
+        
+      {% end %}
+      </th>
+    {% end %}
+    </tr>
+  </tbody>
+
+  </table>
+ 
+  {% if data["selectedDay"]["dayID"] %}
+  <table class="tblD" id="selectedDay" cellpadding="0" cellspacing="0" border="0" align="center">
+    <thead class="tbl-head">
+        <tr>
+          <th colspan="2">Informace o {{data["selectedDay"]["dayID"]}}. dni</th>
+          {% if data["selectedDay"]["mode"]!="edit" %}
+          <th>
+            <button name="edit_btn" class="editouter"><b  class="editinner"><c class="edithrotinner"><label>Edit</label></c></b></button>
+          </th>
+          {% else %}
+          <th>
+            <button name="save_btn" class="saveouter"><b class="saveinner"><label>Save</label></b></button>
+          </th>
+          {% end %}
+          <th>
+            <button name="close_btn" class="deleteouter"><b class="deleteinner"><label>Close</label></b></button>
+          </th>
+        </tr>
+        <tr>
+          <th>Osoba</th>
+          <th>Od</th>
+          <th>Do</th>
+          <th>Typ</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for note in data["notes"] %}
+        {% if int(note[1].split("-")[0])==data["days"]["year"] and int(note[1].split("-")[1])==data["days"]["monthnum"] and int(data["selectedDay"]["dayID"])>=int(note[1].split("-")[2]) and int(data["selectedDay"]["dayID"])<=int(note[2].split("-")[2]) %}
+      <tr class="square">
+        {% if data["selectedDay"]["mode"]=="edit" %}
+        <th><input id="inp" type="text" name="input" value={{note[3]["firstname"]}} {{note[3]["surname"]}}></th>
+        <th><input id="inp" type="date" name="input" value={{ str(note[1])}}></th>
+        <th><input id="inp" type="date" name="input" value={{note[2]}}></th>
+        <th><input id="inp" type="text" name="input" value={{note[4]}}></th>
+        {% else %}
+          <th>{{note[3]["firstname"]}} {{note[3]["surname"]}}</th>
+          <th>{{note[1]}}</th>
+          <th>{{note[2]}}</th>
+          <th>{{note[4]}}</th>
+        {% end %}
+        
+      </tr>
+        {% end %}
+      {% end %}
+      {% if data["selectedDay"]["mode"]=="edit" %}
+        <tr>
+          <th class="tg-button" colspan="3">
+            <button name="add_btn" class="addouter"><b class="addinner"><label>Add</label></b></button>
+          </th> 
+        </tr>
+      {% end %}
+    </tbody>
+
+  <todo class="todo"><input type="hidden" name="dayID" value={{data["selectedDay"]["dayID"]}}></todo>
+  {% end %}
+  
+</form>
+
+
+<author class="made-with-love">
+  Made with
+  <i>♥</i> by
+  <a target="_blank" href="https://github.com/naxit-01">Vojtak</a>
+</author>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+      var scrollpos = localStorage.getItem('scrollpos');
+      if (scrollpos) window.scrollTo(0, scrollpos);
+  });
+
+  window.onbeforeunload = function(e) {
+      localStorage.setItem('scrollpos', window.scrollY);
+  };
+  </script>
+  <form  action="" method="post">
+    <user class=user>
+      <div class="menu">
+        <div class="title" onclick="f()">Logged in as <b>{{ user["username"] }}</b>
+          <div class="arrow"></div></div>
+        <div class="dropdown">
+          <p class="userbtn"><button class="user_btn" name="aboutme_btn">About me</button></p>
+          <p class="userbtn"><button class="user_btn" name="logout_btn">Sign out</button></p>
+        </div>
+      </div>
+  <br>       
+  {% if stats["aboutme"] %}
+    <br>
+    osoba: {{ user["firstname"] }} {{ user["surname"] }}
+    <br>
+    email: {{ user["email"] }}
+    <br>
+    tel: {{ user["tel"] }}
+  {% end %}
+    
+  </form>
+  <script type="text/javascript" src="static/js/user.js"></script>
+
+</body>
+
+</html>

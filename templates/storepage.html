@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zaurex</title>
+    <link rel= "stylesheet" href="{{ static_url("css/overall.css") }}">
+    <link rel="icon" type="image/x-icon" href="{{ static_url("pictures/favicon1.ico") }}">
+    
+    <link rel="stylesheet" href="{{ static_url("css/table.css") }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ static_url("css/body.css") }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ static_url("css/button_save_edit_add_delete.css") }}">
+
+</head>
+<body class="bodyb">
+    <form method="post">
+        <button class="home_btn" name="home_btn">Home</button>
+        <br>
+    <h1>Prehled skladovych zasob</h1>
+    {%for numberOfTable, table in enumerate(database)%}
+        <br>
+            <table class="tblStore" id={{table["tableName"]}} cellpadding="0" cellspacing="0" border="0">
+                <thead class="tbl-head">
+                    <tr>
+                        <th colspan={{ len(table["tableColumns"])+1 }}><strong>{{ table["tableName"] }}</strong></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        {% for i,column in enumerate(table["tableColumns"]) %}
+                            <th><strong>{{ column }}</strong></th>
+                        {% end %}
+                        <th></th><th></th>
+                    </tr>
+                </thead>
+                <tbody class="tbl-body" cellpadding="0" cellspacing="0" border="0">
+                    {% for i, row in enumerate(table["tableRows"])%}
+                    <tr>
+                        {% if table["editID"].count(str(row[table["PK"]]))==0 %}
+                            {% for i,value in enumerate(row) %}
+                                <th><strong>{{ value }}</strong></th>
+                            {% end %}
+                            <th>
+                                <button name={{str("Edit_button"+table["tableName"]+str(row[table["PK"]]))}} class="editouter"><b  class="editinner"><c class="edithrotinner"><label>Edit</label></c></b></button>
+                            </th>
+                            <th>
+                                <button name={{str("Delete_button"+table["tableName"]+str(row[table["PK"]]))}} class="deleteouter"><b class="deleteinner"><label>Delete</label></b></button>
+                            </th>
+                        {% else %}
+                            {% for i,value in enumerate(row) %}
+                                <th>
+                                    <input type="text" name={{str("input"+table["tableName"]+str(row[table["PK"]])+str(i))}} value={{ value }}>
+                                </th>
+                            {% end %}
+                            <th >
+                                <button name={{str("Save_button"+table["tableName"]+str(row[table["PK"]]))}} class="saveouter"><b class="saveinner"><label>Save</label></b></button>
+                            </th>
+                            <th >
+                                <button name={{str("Delete_button"+table["tableName"]+str(row[table["PK"]]))}} class="deleteouter"><b class="deleteinner"><label>Delete</label></b></button>
+                            </th>
+                        {% end %}
+                    </tr>
+                    {% end %}
+                <tr>
+                    <th class="tg-button" colspan={{ len(table["tableColumns"]) }}>
+                        <button name={{str("Add_button"+table["tableName"])}} class="addouter"><b class="addinner"><label>Add</label></b></button>
+                    </th> 
+                </tr>
+                
+                </tbody>
+            </table>
+    {% end %}
+
+    </form>
+
+    <logohome class="logohome">
+        <a href='/'><img src='/static/pictures/logoVelkePlank_trans.png' width="435" height="100")></a> 
+    </logohome>
+
+
+    <author class="made-with-love">
+        Made with
+        <i>♥</i> by
+        <a target="_blank" href="https://github.com/naxit-01">Vojtak</a>
+    </author>
+  
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) { 
+        var scrollpos = localStorage.getItem('scrollpos');
+        if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+
+        window.onbeforeunload = function(e) {
+        localStorage.setItem('scrollpos', window.scrollY);
+        };
+    </script>
+          <form  action="" method="post">
+            <user class=user>
+              <div class="menu">
+                <div class="title" onclick="f()">Logged in as <b>{{ user["username"] }}</b>
+                  <div class="arrow"></div></div>
+                <div class="dropdown">
+                  <p class="userbtn"><button class="user_btn" name="aboutme_btn">About me</button></p>
+                  <p class="userbtn"><button class="user_btn" name="logout_btn">Sign out</button></p>
+                </div>
+              </div>
+          <br>       
+          {% if stats["aboutme"] %}
+            <br>
+            osoba: {{ user["firstname"] }} {{ user["surname"] }}
+            <br>
+            email: {{ user["email"] }}
+            <br>
+            tel: {{ user["tel"] }}
+          {% end %}
+            
+          </form>
+    <script type="text/javascript" src="static/js/user.js"></script>    
+</body>
+</html>

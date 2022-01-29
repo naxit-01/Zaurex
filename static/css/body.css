@@ -1,0 +1,20 @@
+
+
+/* demo styles */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 50px;
+}
+
+.bodyb {
+    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+    background: linear-gradient(to right, #25c481, #25b7c4);
+}
+
+.bodyr {
+    background: -webkit-linear-gradient(left,#ca3f3f, #ff7675);
+    background: linear-gradient(to right, #ca3f3f, #ff7675);
+}
+        
+        

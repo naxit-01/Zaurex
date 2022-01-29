@@ -1,0 +1,9 @@
+.select{
+    width: 40%;
+    height: 35px;
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgb(48, 212, 188)
+}
