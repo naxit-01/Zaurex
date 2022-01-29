@@ -18,8 +18,8 @@ def authenticate(self,dbHndlr,user):
 		print("user not found")
 		return 0
 	if current_user[1] == user["password"]:
-		self.set_secure_cookie("UserID", str(current_user[0]), expires_days=1, domain='127.0.0.1')
-		self.set_secure_cookie("UserType", str(current_user[2]), expires_days=1, domain='127.0.0.1')
+		self.set_secure_cookie("UserID", str(current_user[0]), expires_days=1)
+		self.set_secure_cookie("UserType", str(current_user[2]), expires_days=1)
 	else: print("wrong password")
 
 def get_current_user(self,dbHndlr):

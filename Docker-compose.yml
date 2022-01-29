@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  # generates keycloak
+  zaurex:
+    image: zaurex
+    container_name: zaurex
+    build:
+      context: .
+    ports:
+      - 9999:9999
+    restart: on-failure

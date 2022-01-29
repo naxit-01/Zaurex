@@ -2,7 +2,7 @@ import os
 from moduls import *
 from moduls import authenticate 
 
-g_port = 80
+g_port = 9999
 dbHndlr=DBHandler(os.path.join(os.path.dirname(__file__), "static/db.db"))
 
 store_route('/store', "storepage.html", dbHndlr) 
@@ -14,7 +14,7 @@ employees_route('/employees', "employeespage.html", dbHndlr)
 class RootHandler(tornado.web.RequestHandler):
     def get(self):
         if not current_user(self)["UserID"]:
-            self.render('loginpage.html')
+            self.render('loginpage.html',db=dbHndlr.readTableRows("users"))
         else:
             self.render('homepage.html', user=get_current_user(self, dbHndlr),stats={"aboutme":False})
         
