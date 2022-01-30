@@ -22,7 +22,7 @@ def showPage(self, dbHndlr):
         table["tableRows"]=dbHndlr.readTableRows(table["tableName"])
         table["tableColumns"]=dbHndlr.readTableColumns(table["tableName"])
 
-    self.render(self._template, database=self._dtbs)
+    self.render(self._template, database=self._dtbs,user=get_current_user(self, dbHndlr),stats={"aboutme":False})
 
 def employees_route(uri, template, dbHndlr):
     @route(uri, name=uri)

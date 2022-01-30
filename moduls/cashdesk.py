@@ -76,10 +76,11 @@ def cashdesk_route(uri, template, dbHndlr):
                     "dt":dt
                 }
                 createPDF(data)
-                openPDF(data)
                 self._dbHndlr.addTableRow("receipts",[data["rec_id"],data["dt"][0],data["dt"][1].split(".")[0],str(lst),sum,data["user"],data["name"]])
                 self._dtbs[0]["selectedID"]=[]
-                showPage(self, self._dbHndlr,self.get_cookie("showMode"))
+                self._dtbs[1]["selectedID"]=[(data["rec_id"])]
+                self.set_cookie("showMode","True")
+                showPage(self, self._dbHndlr,"True")
             if self.get_argument(str("showMode_btn"), None) != None:
                 if self.get_cookie("showMode")=="True": 
                     self.set_cookie("showMode","False")

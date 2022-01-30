@@ -90,6 +90,27 @@
         localStorage.setItem('scrollpos', window.scrollY);
         };
     </script>
-
+          <form  action="" method="post">
+            <user class=user>
+              <div class="menu">
+                <div class="title" onclick="f()">Logged in as <b>{{ user["username"] }}</b>
+                  <div class="arrow"></div></div>
+                <div class="dropdown">
+                  <p class="userbtn"><button class="user_btn" name="aboutme_btn">About me</button></p>
+                  <p class="userbtn"><button class="user_btn" name="logout_btn">Sign out</button></p>
+                </div>
+              </div>
+          <br>       
+          {% if stats["aboutme"] %}
+            <br>
+            osoba: {{ user["firstname"] }} {{ user["surname"] }}
+            <br>
+            email: {{ user["email"] }}
+            <br>
+            tel: {{ user["tel"] }}
+          {% end %}
+            
+          </form>
+          <script type="text/javascript" src="static/js/user.js"></script>
 </body>
 </html>
